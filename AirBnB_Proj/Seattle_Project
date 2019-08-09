@@ -1,0 +1,38 @@
+"""
+Created on Tue Aug  6 13:00:06 2019
+
+@author: Mitchell Rea
+@MMM UID: A7HN3ZZ
+@Github: https://github.com/MitchRea
+"""
+
+"""
+Using the Seattle Open AirBnB data I want to answer the following questions:
+A. Basic Statistics
+    1) Average price per neighbourhood
+    2) Property/Room Type Statistics
+    
+B. "Heathly" Pipelines
+    1) Are there inherent attributes that contribute to the pipeline?
+    2) How important are reviews to pipeline health?
+    3) How does cancellation policy affect long-term vs short-term pipeline?
+"""
+
+import pandas as pd
+
+df_listings = pd.read_csv("Udacity/07 - Intro to Data Science/listings.csv")
+
+df_listings.neighbourhood_group_cleansed.head()
+df_listings['id'].groupby(df_listings['calendar_updated']).count()
+
+df_A = df_listings[['neighbourhood_group_cleansed', 'property_type', 'room_type', 'amenities', 'beds', 'price']]
+df_A['price_per_bed'] = df_A['price'] / df_A['beds']
+df_A.info()
+
+df_A1 = df_A[['neighbourhood_group_cleansed', 'beds', 'price', 'price_per_bed']]
+df_A1 = df_A1.groupby('neighbourhood_group_cleansed').mean().reset_index()
+df_A1.sort_values('price', ascending=False)
+
+df_A2 = df_A[['neighbourhood_group_cleansed', 'room_type', 'amenities', 'price', 'price_per_bed']]
+df_A2.amenities.apply(pd.Series)
+pd.Series(df_A2['amenities'])
