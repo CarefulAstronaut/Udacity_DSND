@@ -66,10 +66,37 @@ plt.show()
 
 ## A2 Section
 
+# Lists
+roomtype = ['Entire Home/Apt', 'Private Room', 'Shared Room']
+nbh = ['Magnolia', 'Queen Anne', 'Downtown', 'West Seattle', 'Cascade']
+A2_results = []
+
 #DF Manipulation
 df_A2 = df_A[['neighbourhood_group_cleansed', 'room_type', 'price', 'price_per_bed']]
 df_A2.set_index('neighbourhood_group_cleansed', inplace = True)
 df_A2.loc[['Magnolia', 'Queen Anne', 'Downtown', 'West Seattle', 'Cascade']]
 
-for i in (['Magnolia', 'Queen Anne', 'Downtown', 'West Seattle', 'Cascade']): 
+for i in (nbh): 
     print(df_A2.loc[i].groupby('room_type').mean())
+    A2_results.append(df_A2.loc[i].groupby('room_type').mean())
+    
+# Chart Building
+for i, t in zip(range(5), nbh):
+
+    bars1 = A2_results[1].iloc[:, 0]
+    bars2 = A2_results[1].iloc[:, 1]
+    
+    r1 = np.arange(len(bars1))
+    r2 = [x + barWidth for x in r1]
+
+    plt.bar(r1, bars1, width=barWidth, edgecolor='white', label='Avg. Listing Price')
+    plt.bar(r2, bars2, width=barWidth, edgecolor='white', label='Avg. Price per Bed')
+
+    plt.xlabel('Room Type', fontweight='bold')
+    plt.xticks([r + (barWidth/2) for r in range(len(bars1))], roomtype)
+    
+    plt.title(t)
+
+    plt.legend()
+    plt.show()
+
