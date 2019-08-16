@@ -9,6 +9,8 @@ This project was designed to help AirBnB hosts with their business.  It has some
 
 This project was done entirely with the AirBnB Seattle open dataset from Kaggle, specifically the listings.csv file.  The listings.csv file (full) is the unedited version, while the listings.csv file has some value type edits to help import values as numeric and not string.  
 
+There is both a .ipynb and a .py file included here.  The .py is the source code with minimal writeup and explanation, while the .ipynb goes into some depth the motivations and business implications of the analysis.  I would recommend reading the .ipynb file for clarification and if you just want the code after, the .py file is still available. 
+
 ## Libararies
 
 This repo uses some basic python libraries to dig through the data.  Most of this work is done through visualiations and grouping buckets together, but it is still effective to solve our business questions. 
