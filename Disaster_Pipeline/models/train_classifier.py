@@ -95,25 +95,37 @@ def evaluate_model(model, X_test, Y_test, category_names):
     Y_test = Y set for the model accuracy tests
     
     OUTPUT:
-    None
+    model_cv = GridSearch output
     '''
-    Y_pred = model.predict(X_test)
+    
+    parameters = {
+        'vect__max_features': (5000, 10000), 
+        'tfidf__use_idf': (True, False), 
+        'clf__estimator__n_estimators': [25, 50],
+        'clf__estimator__max_depth': [2, 5],
+    }
+
+    mdoel_cv = GridSearchCV(pipeline, param_grid=parameters)
+    
+    Y_pred = model_cv.predict(X_test)
 
     for i in range(0, 35):
         print("Scores for column: %s\n"
               % (Y_test.columns[i]))
         print(classification_report(Y_test.iloc[:, i], Y_pred[:, i]))
+    
+    return model_cv
 
-
-def save_model(model, model_filepath):
+def save_model(model_cv, model_filepath):
     '''
-    Saving the model for 
+    Saving the model for future use
     
     INPUT:
     
     OUTPUT:
     '''
-    joblib.dump(model, model_filepath)
+    
+    joblib.dump(model_cv, model_filepath)
 
 
 def main():
@@ -133,7 +145,7 @@ def main():
         evaluate_model(model, X_test, Y_test, category_names)
 
         print('Saving model...\n    MODEL: {}'.format(model_filepath))
-        save_model(model, model_filepath)
+        save_model(model_cv, model_filepath)
 
         print('Trained model saved!')
 
