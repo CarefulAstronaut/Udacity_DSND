@@ -5,7 +5,7 @@
 
 In the /Data folder, there are 2 .csv files "messages.csv" and "categories.csv".  These files contain both the translated messages and associated metadata, along with the category assignments for the suprvised learning section. 
 
-Spread amongst the 3 folders are the relevant .py scripts to be used for the app.  ETL script in /Data, Model training in /Model, and the script to run the app in /App. 
+Spread amongst the 3 folders are the relevant .py scripts to be used for the app.  ETL script in /Data, Model training in /Models, and the script to run the app in /App. 
 
 ## Libararies
 
