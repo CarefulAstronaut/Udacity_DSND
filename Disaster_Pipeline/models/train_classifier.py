@@ -81,10 +81,19 @@ def build_model():
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
     
-    return model
+    parameters = {
+        'vect__max_features': (5000, 10000), 
+        'tfidf__use_idf': (True, False), 
+        'clf__estimator__n_estimators': [25, 50],
+        'clf__estimator__max_depth': [2, 5],
+    }
+
+    model_cv = GridSearchCV(model, param_grid=parameters)
+    
+    return model, model_cv
 
 
-def evaluate_model(model, X_test, Y_test, category_names):
+def evaluate_model(model_cv, X_test, Y_test, category_names):
     '''
     Custom tokenization for the messages.  Lower-case letters, standard tokenization, 
     and standard lemmatizer. 
@@ -97,16 +106,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
     OUTPUT:
     model_cv = GridSearch output
     '''
-    
-    parameters = {
-        'vect__max_features': (5000, 10000), 
-        'tfidf__use_idf': (True, False), 
-        'clf__estimator__n_estimators': [25, 50],
-        'clf__estimator__max_depth': [2, 5],
-    }
-
-    mdoel_cv = GridSearchCV(model, param_grid=parameters)
-    
+        
     Y_pred = model_cv.predict(X_test)
 
     for i in range(0, 35):
@@ -136,13 +136,13 @@ def main():
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
         
         print('Building model...')
-        model = build_model()
+        model, model_cv = build_model()
         
         print('Training model...')
-        model.fit(X_train, Y_train)
+        model_cv.fit(X_train, Y_train)
         
         print('Evaluating model...')
-        evaluate_model(model, X_test, Y_test, category_names)
+        evaluate_model(model_cv, X_test, Y_test, category_names)
 
         print('Saving model...\n    MODEL: {}'.format(model_filepath))
         save_model(model_cv, model_filepath)
