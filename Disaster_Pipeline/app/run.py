@@ -43,6 +43,8 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
+    
+    
     # create visuals
     graphs = [
         {
@@ -50,11 +52,8 @@ def index():
                 Bar(
                     x=genre_names,
                     y=genre_counts
-                ),
-                Pie(
-                    values=genre_counts,
-                    labels-genre_names
                 )
+                # Unsure of how to add a second chart here, want to see a histogram of the different categories
             ],
 
             'layout': {
@@ -64,8 +63,7 @@ def index():
                 },
                 'xaxis': {
                     'title': "Genre"
-                },
-                'title': 'Pie Distribution of Message Genres'
+                }
             }
         }
     ]
