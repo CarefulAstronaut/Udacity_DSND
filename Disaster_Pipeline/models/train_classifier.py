@@ -105,7 +105,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
         'clf__estimator__max_depth': [2, 5],
     }
 
-    mdoel_cv = GridSearchCV(pipeline, param_grid=parameters)
+    mdoel_cv = GridSearchCV(model, param_grid=parameters)
     
     Y_pred = model_cv.predict(X_test)
 
