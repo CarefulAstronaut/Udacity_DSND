@@ -43,7 +43,7 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
-    
+    cat_count = df.sum(axis=0)
     
     # create visuals
     graphs = [
@@ -52,21 +52,31 @@ def index():
                 Bar(
                     x=genre_names,
                     y=genre_counts
+                ),
+                Histogram(
+                    cat_count
                 )
-                # Unsure of how to add a second chart here, want to see a histogram of the different categories
             ],
 
             'layout': {
                 'title': 'Distribution of Message Genres',
                 'yaxis': {
                     'title': "Count"
-                },
+                    },
                 'xaxis': {
                     'title': "Genre"
+                    }
+                }, 
+                     {
+                'title': 'Categories per Message',
+                'yaxis': {
+                    'title': "Number of Messages"
+                    },
+                'xaxis': {
+                    'title': "Number of Categories"
                 }
             }
-        }
-    ]
+        ]
     
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
