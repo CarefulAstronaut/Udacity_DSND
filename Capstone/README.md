@@ -25,3 +25,7 @@ Libraries: pandas, numpy, matplotlib, dill, sklearn, workspace_utils (custom .py
 The results from this project were not very good, as I only managed to get an AUC score of .507.  I didn't plan my prcedure based on what the project goals were, and wasn't thinking about what I needed to get from part 1 to 2.  By using the K-Means clustering I was unable to pass on the learnings and scale of the data from part 1.   
 
 In redoing this, I would change the algorithms to something creates a clustering scale rather than assigning a datapoint to a group.  DBSCAN or a GMM would give the information I need, and would hopefully get a better result.  
+
+## Acknowledgments 
+
+There are a couple of .py scripts that come from earier Udacity projects.  These were needed to help keep the workspace alive while running through the notebook.  
